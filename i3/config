@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+font pango:Inconsolata NF 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -78,10 +78,13 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+CRTL+h split v
+bindsym $mod+z split v
 
 # split in vertical orientation
-bindsym $mod+CTRL+v split h
+bindsym $mod+x split h
+
+# master-stack keybinding (moves stack window to master and current master back to stack window)
+bindsym $mod+m exec "i3-msg \\"move left; focus up; move right; focus left\\""
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -109,10 +112,10 @@ set $terms "1: terms"
 set $web "2: web"
 set $coms "3: coms"
 set $mail "4: mail"
-set $ws5 "5"
+set $orgmode "5: orgmode"
 set $terms_priv "6: terms_priv"
 set $web_priv "7: web_priv"
-set $ws8 "8"
+set $media "8: Media"
 set $ws9 "9"
 set $ws10 "10"
 
@@ -121,10 +124,10 @@ bindsym $mod+1 workspace number $terms
 bindsym $mod+2 workspace number $web
 bindsym $mod+3 workspace number $coms
 bindsym $mod+4 workspace number $mail
-bindsym $mod+5 workspace number $ws5
+bindsym $mod+5 workspace number $orgmode
 bindsym $mod+6 workspace number $terms_priv
 bindsym $mod+7 workspace number $web_priv
-bindsym $mod+8 workspace number $ws8
+bindsym $mod+8 workspace number $media
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
 
@@ -133,10 +136,10 @@ bindsym $mod+Shift+1 move container to workspace number $terms
 bindsym $mod+Shift+2 move container to workspace number $web
 bindsym $mod+Shift+3 move container to workspace number $coms
 bindsym $mod+Shift+4 move container to workspace number $mail
-bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+5 move container to workspace number $orgmode
 bindsym $mod+Shift+6 move container to workspace number $terms_priv
 bindsym $mod+Shift+7 move container to workspace number $web_priv
-bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+8 move container to workspace number $media
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
@@ -204,8 +207,8 @@ focus_follows_mouse no
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 
-exec xinput set-prop 12 "libinput Tapping Enabled" 1
-exec xinput set-prop 12 "libinput Natural Scrolling Enabled" 1
+exec xinput set-prop "DELL09C3:00 0488:120A Touchpad" "libinput Tapping Enabled" 1
+exec xinput set-prop "DELL09C3:00 0488:120A Touchpad" "libinput Natural Scrolling Enabled" 1
 exec xmodmap -e "clear lock"
 exec xmodmap -e "keysym Caps_Lock = Escape"
 
@@ -308,13 +311,33 @@ bar {
     }
 }
 
-set $mode_display Config monitor resolution - Default config (d)
+set $mode_display Config monitor resolution - Default config (d) - 3 monitors (m)
 
 mode "$mode_display" {
-    bindsym d exec --no-startup-id sh "$HOME/.config/X11/monitor.sh", mode "default"
+    bindsym d exec --no-startup-id sh "$HOME/.config/X11/laptop.sh", mode "default"
+    bindsym m exec --no-startup-id sh "$HOME/.config/X11/3-mon.sh", mode "3-monitors"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+x mode "$mode_display"
+bindsym $mod+Shift+m mode "$mode_display"
+
+# Multiple monitors
+bindsym $mod+p move workspace to output right
+
+# Rebind Caps Lock when shifting keyboard
+bindsym $mod+y exec "setxkbmap -option 'caps:ctrl_modifier';xcape -e 'Caps_Lock=Escape' &"
+
+# Picom 
+# exec --no-startup-id picom
+
+# Screenshots
+bindsym Print exec "maim -u -s -n -l -c 0.157,0.333,0.466,0.4 ~/Pictures/Screenshot-$(date -Iseconds | cut -d'+' -f1).png"
+bindsym Mod4+Print exec "maim -u -s -n -l -c 0.157,0.333,0.466,0.4 | xclip -selection clipboard -t image/png"
+bindsym Shift+Print exec ~/dotfiles/i3/record-screen.sh byzanz
+bindsym Shift+Ctrl+Print exec ~/dotfiles/i3/record-screen.sh gif
+bindsym Shift+Mod4+Print exec ~/dotfiles/i3/record-screen.sh ogv
+
+# Media Keys
+bindsym $mod+CTRL+p exec playerctl play-pause
