@@ -29,6 +29,7 @@ setopt PUSHD_SILENT
 
 # Vim
 bindkey -v
+export KEYTIMEOUT=1
 # Set vim cursor mode
 autoload -Uz cursor_mode && cursor_mode
 
