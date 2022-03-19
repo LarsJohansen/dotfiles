@@ -223,6 +223,8 @@ bindsym $mod+CTRL+Shift+l exec --no-startup-id $i3lockwall
 # Desktop Background
 exec --no-startup-id feh --no-fehbg --bg-fill ~/.config/i3/feh/HD-Peaceful-Background.jpg
 
+# Notifications
+exec --no-startup-id dunst
 
 # special
 set_from_resource $foreground foreground #C6C6C6
