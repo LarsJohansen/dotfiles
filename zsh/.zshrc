@@ -2,9 +2,14 @@ fpath=($ZDOTDIR/external $fpath)
 
 # source "$HOME/dotfiles/zsh/.zshenv"
 source "$XDG_CONFIG_HOME/zsh/aliases"
+source "$DOTFILES/zsh/scripts.sh"
 
 setopt AUTO_PARAM_SLASH
 unsetopt CASE_GLOB
+
+# SCRIPTS
+# ftmuxp
+
 
 # Navigate completion menu with vim keys
 zmodload zsh/complist
@@ -13,6 +18,11 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 autoload -U compinit; compinit
+
+# Ctrl+G to clear screen (to be compatible with tmux)
+bindkey -r '^l'
+bindkey -r '^g'
+bindkey -s '^g' clear-screen
 
 # Autocomplete hidden files 
 _comp_options+=(globdots)
@@ -46,10 +56,14 @@ if [ $(command -v "fzf") ]; then
     source /usr/share/fzf/key-bindings.zsh
 fi
 
+eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv init -)"
+
 # start i3
 if [ "$(tty)" = "/dev/tty1" ];
 then
     pgrep i3 || exec startx "$HOME/.xinitrc"
 fi
+
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

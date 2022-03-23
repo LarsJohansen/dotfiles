@@ -281,15 +281,38 @@ client.placeholder 	#000000 #0c0c0c $white2 #000000 0c0c0c
 for_window [class="URxvt*"] border pixel 1
 for_window [class="URxvt*"] border pixel 1
 
-# Terminal scratchpad
+
+# Terminal scratchpad with tmux and two windows: 1.Terminal | 2.Neovim temp file
+
 for_window [instance="URxvt_scratchpad"] move to scratchpad, border none
 bindsym $mod+Shift+t [instance="URxvt_scratchpad"] scratchpad show
-exec urxvt -name URxvt_scratchpad
+exec urxvt -name URxvt_scratchpad -e tmux new-session -d -s scratchpad \; new-window -n vim 'nvim +e /tmp/nvim-tmp.md' \; attach-session -d -t scratchpad
+
+# # Terminal scratchpad
+# for_window [instance="URxvt_scratchpad"] move to scratchpad, border none
+# bindsym $mod+Shift+t [instance="URxvt_scratchpad"] scratchpad show
+# exec urxvt -name URxvt_scratchpad
 
 # htop scratchpad
 for_window [instance="htop_scratchpad"] move to scratchpad, border none
 bindsym $mod+Shift+p [instance="htop_scratchpad"] scratchpad show
 exec urxvt -name htop_scratchpad -e htop
+
+# bluetootct popup term
+for_window [instance="bt_popup"] move to scratchpad, border none
+bindsym $mod+Shift+b [instance="bt_popup"] scratchpad show
+exec urxvt -name bt_popup -e bluetoothctl
+
+# sound mixer popup term
+for_window [instance="sound_popup"] move to scratchpad, border none
+bindsym $mod+Shift+s [instance="sound_popup"] scratchpad show
+exec urxvt -name sound_popup -e ncpamixer
+
+# Spotify-Tui popup term
+for_window [instance="spotify_popup"] move to scratchpad, border none
+bindsym $mod+Ctrl+Shift+m [instance="spotify_popup"] scratchpad show
+exec urxvt -name spotify_popup -e spt
+
 
 # i3bar
 bar {
