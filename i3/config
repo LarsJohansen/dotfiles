@@ -310,7 +310,7 @@ exec urxvt -name sound_popup -e ncpamixer
 
 # Spotify-Tui popup term
 for_window [instance="spotify_popup"] move to scratchpad, border none
-bindsym $mod+Ctrl+Shift+m [instance="spotify_popup"] scratchpad show
+bindsym $mod+Shift+m [instance="spotify_popup"] scratchpad show
 exec urxvt -name spotify_popup -e spt
 
 
@@ -346,7 +346,7 @@ mode "$mode_display" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Shift+m mode "$mode_display"
+bindsym $mod+CTRL+Shift+m mode "$mode_display"
 
 # Multiple monitors
 bindsym $mod+p move workspace to output right

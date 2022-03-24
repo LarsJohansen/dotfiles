@@ -26,6 +26,7 @@ call plug#begin("$XDG_CONFIG_HOME/nvim/plugged")
     Plug 'tpope/vim-commentary'
     Plug 'jiangmiao/auto-pairs'
     Plug 'AndrewRadev/splitjoin.vim'
+    Plug 'tpope/vim-obsession'
 call plug#end()
 
 
@@ -432,7 +433,6 @@ endif
 endfunc
 
 " Plugin Config
-" this doesn't work.. 
 let g:winresizer_start_key = "<leader>w"
 
 """"""""""""""""""""
@@ -683,7 +683,7 @@ let g:lightline = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vimroom
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:goyo_width=100
+let g:goyo_width=120
 let g:goyo_margin_top = 2
 let g:goyo_margin_bottom = 2
 nnoremap <silent> <leader>z :Goyo<cr>
@@ -700,3 +700,8 @@ let g:user_zen_mode='a'
 let g:gitgutter_enabled=0
 nnoremap <silent> <leader>d :GitGutterToggle<cr>
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Startify
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:startify_session_dir = '$HOME/vim-sessions'
