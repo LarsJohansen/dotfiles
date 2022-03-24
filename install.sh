@@ -59,6 +59,7 @@ ln -sf "$DOTFILES/zsh/external" "$XDG_CONFIG_HOME/zsh"
 #########
 # emacs #
 #########
+mkdir -p "$HOME/.emacs.d"
 ln -sf "$DOTFILES/emacs/custom.el" "$HOME/.emacs.d/"
 ln -sf "$DOTFILES/emacs/init.el" "$HOME/.emacs.d/"
 
