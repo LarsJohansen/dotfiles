@@ -358,11 +358,7 @@ bindsym $mod+y exec "setxkbmap -option 'caps:ctrl_modifier';xcape -e 'Caps_Lock=
 # exec --no-startup-id picom
 
 # Screenshots
-bindsym Print exec "maim -u -s -n -l -c 0.157,0.333,0.466,0.4 ~/Pictures/Screenshot-$(date -Iseconds | cut -d'+' -f1).png"
-bindsym Mod4+Print exec "maim -u -s -n -l -c 0.157,0.333,0.466,0.4 | xclip -selection clipboard -t image/png"
-bindsym Shift+Print exec ~/dotfiles/i3/record-screen.sh byzanz
-bindsym Shift+Ctrl+Print exec ~/dotfiles/i3/record-screen.sh gif
-bindsym Shift+Mod4+Print exec ~/dotfiles/i3/record-screen.sh ogv
+bindsym --release $mod+Shift+CTRL+s exec "scrot -s 'screenshot-%Y-%m-%d-%H_%M.jpg' && mv $HOME/screenshot*.jpg $HOME/screenshots/"
 
 # Media Keys
 bindsym $mod+CTRL+p exec playerctl play-pause
