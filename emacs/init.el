@@ -93,12 +93,12 @@
 (setq org-capture-templates
         '(("d" "Distraction" entry (file+headline "~/documents/notes/distractions.org" "Notes")
          "* %?\n%T")
-	  ("t" "TODO" entry (file+headline "~/todo.org" "Captured Tasks")
+	  ("t" "TODO" entry (file+headline "~/documents/todo.org" "Captured Tasks")
          "* TODO %?\n %i\n %a")))
 
 ;; Agenda files. Change to your chosen file(s)
 (global-set-key (kbd "C-c a") 'org-agenda)
-(setq org-agenda-files '("~/todo.org"))
+(setq org-agenda-files '("~/documents/todo.org"))
 (setq org-agenda-include-diary t)
 (setq calendar-latitude 59.6)
 (setq calendar-longitude 10.7)

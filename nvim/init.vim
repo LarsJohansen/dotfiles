@@ -27,6 +27,7 @@ call plug#begin("$XDG_CONFIG_HOME/nvim/plugged")
     Plug 'jiangmiao/auto-pairs'
     Plug 'AndrewRadev/splitjoin.vim'
     Plug 'tpope/vim-obsession'
+    Plug 'github/copilot.vim'
 call plug#end()
 
 
@@ -210,7 +211,7 @@ map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
-map <leader>t<leader> :tabnext
+map <leader>t  :tabnext<cr>
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1

@@ -85,3 +85,13 @@ ln -sf "$DOTFILES/tmux/tmux.conf" "$XDG_CONFIG_HOME/tmux/tmux.conf"
 [ ! -d "$XDG_CONFIG_HOME/tmux/plugins/tpm" ] \
 && git clone https://github.com/tmux-plugins/tpm \
 "$XDG_CONFIG_HOME/tmux/plugins/tpm"
+
+############
+# redshift #
+############
+ln -sf $DOTFILES/redshift/redshift.conf $XDG_CONFIG_HOME
+
+#######
+# feh #
+#######
+ln -sf $DOTFILES/feh/.fehbg $XDG_CONFIG_HOME/.fehbg

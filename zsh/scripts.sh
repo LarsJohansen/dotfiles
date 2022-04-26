@@ -30,3 +30,7 @@ vman() {
         echo "No manual entry for $*"
     fi
 }
+
+scratchpad() {
+    "$DOTFILES/bash/scripts/scratchpad.sh" "$@"
+}

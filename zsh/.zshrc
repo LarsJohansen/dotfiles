@@ -22,7 +22,7 @@ autoload -U compinit; compinit
 # Ctrl+G to clear screen (to be compatible with tmux)
 bindkey -r '^l'
 bindkey -r '^g'
-bindkey -s '^g' clear-screen
+bindkey '^g' .clear-screen
 
 # Autocomplete hidden files 
 _comp_options+=(globdots)
@@ -44,6 +44,8 @@ bindkey -v
 export KEYTIMEOUT=1
 # Set vim cursor mode
 autoload -Uz cursor_mode && cursor_mode
+# Set diffprog
+export DIFFPROG="nvim -d $1"
 
 autoload -Uz edit-command-line
 zle -N edit-command-line

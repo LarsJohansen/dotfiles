@@ -17,7 +17,7 @@ font pango:Inconsolata NF 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+# font pango:DejaVu Sans Mono 10
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -52,6 +52,9 @@ bindsym $mod+d exec rofi -show drun
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# launch redshift
+exec --no-startup-id redshift &
 
 # change focus
 bindsym $mod+h focus left
@@ -157,8 +160,8 @@ set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) re
 mode "$mode_system" {
 	bindsym l exec --no-startup-id $i3lockwall, mode "default"
 	bindsym e exec --no-startup-id i3-msg exit, mode "default"
-	bindsym s exec --no-startup-id $i3lockwall && systemctl suspend, mode "default"
-	bindsym h exec --no-startup-id $i3lockwall && systemctl hibernate, mode "default"
+	bindsym s exec --no-startup-id $i3lockwall && bluetoothctl power off && systemctl suspend, mode "default"
+	bindsym h exec --no-startup-id $i3lockwall && bluetoothctl power off && systemctl hibernate, mode "default"
 	bindsym r exec --no-startup-id systemctl reboot, mode "default"
 	bindsym CTRL+s exec --no-startup-id systemctl poweroff -i, mode "default"
 	bindsym Return mode "default"
@@ -221,7 +224,7 @@ set $i3lockwall sh ~/.config/i3/scripts/lock.sh
 bindsym $mod+CTRL+Shift+l exec --no-startup-id $i3lockwall
 
 # Desktop Background
-exec --no-startup-id feh --no-fehbg --bg-fill ~/.config/i3/feh/HD-Peaceful-Background.jpg
+exec --no-startup-id sh $XDG_CONFIG_HOME/.fehbg
 
 # Notifications
 exec --no-startup-id dunst
@@ -286,33 +289,47 @@ for_window [class="URxvt*"] border pixel 1
 
 for_window [instance="URxvt_scratchpad"] move to scratchpad, border none
 bindsym $mod+Shift+t [instance="URxvt_scratchpad"] scratchpad show
-exec urxvt -name URxvt_scratchpad -e tmux new-session -d -s scratchpad \; new-window -n vim 'nvim +e /tmp/nvim-tmp.md' \; attach-session -d -t scratchpad
-
-# # Terminal scratchpad
-# for_window [instance="URxvt_scratchpad"] move to scratchpad, border none
-# bindsym $mod+Shift+t [instance="URxvt_scratchpad"] scratchpad show
-# exec urxvt -name URxvt_scratchpad
+exec urxvtc -bg rgba:0000/0000/0000/c800 --depth 32 -name URxvt_scratchpad -e tmux new-session -d -s scratchpad \; new-window -n vim 'nvim +e /tmp/nvim-tmp.md' \; attach-session -d -t scratchpad
 
 # htop scratchpad
 for_window [instance="htop_scratchpad"] move to scratchpad, border none
 bindsym $mod+Shift+p [instance="htop_scratchpad"] scratchpad show
-exec urxvt -name htop_scratchpad -e htop
+exec urxvtc -name htop_scratchpad -e htop
 
 # bluetootct popup term
 for_window [instance="bt_popup"] move to scratchpad, border none
 bindsym $mod+Shift+b [instance="bt_popup"] scratchpad show
-exec urxvt -name bt_popup -e bluetoothctl
+exec urxvtc -name bt_popup -e bluetoothctl
 
 # sound mixer popup term
 for_window [instance="sound_popup"] move to scratchpad, border none
 bindsym $mod+Shift+s [instance="sound_popup"] scratchpad show
-exec urxvt -name sound_popup -e ncpamixer
+exec urxvtc -name sound_popup -e ncpamixer
 
 # Spotify-Tui popup term
 for_window [instance="spotify_popup"] move to scratchpad, border none
 bindsym $mod+Shift+m [instance="spotify_popup"] scratchpad show
-exec urxvt -name spotify_popup -e spt
+exec urxvtc -name spotify_popup -e spt
 
+set $mode_scratchpad (t) terminal, (h) htop, (b) bluetooth, (s) soundmixer, (m) spotify
+
+mode "$mode_scratchpad" {
+	bindsym t [instance="URxvt_scratchpad"] scratchpad show, mode "default"
+	bindsym h [instance="htop_scratchpad"] scratchpad show, mode "default"
+	bindsym b [instance="bt_popup"] scratchpad show, mode "default"
+	bindsym s [instance="sound_popup"] scratchpad show, mode "default"
+	bindsym m [instance="spotify_popup"] scratchpad show, mode "default"
+    bindsym Shift+t exec urxvtc -bg rgba:0000/0000/0000/c800 --depth 32 -name URxvt_scratchpad -e tmux new-session -d -s scratchpad \; new-window -n vim 'nvim +e /tmp/nvim-tmp.md' \; attach-session -d -t scratchpad
+	bindsym Shift+h exec urxvtc -name htop_scratchpad -e htop, mode "default"
+	bindsym Shift+b exec urxvtc -name bt_popup -e bluetoothctl, mode "default"
+    bindsym Shift+s exec urxvtc -name sound_popup -e ncpamixer, mode "default"
+    bindsym Shift+m exec urxvtc -name spotify_popup -e spt, mode "default"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+CTRL+s mode "$mode_scratchpad"
 
 # i3bar
 bar {
@@ -336,16 +353,18 @@ bar {
     }
 }
 
+## Manual management of external displays
 set $mode_display Config monitor resolution - Default config (d) - 3 monitors (m)
 
 mode "$mode_display" {
-    bindsym d exec --no-startup-id sh "$HOME/.config/X11/laptop.sh", mode "default"
-    bindsym m exec --no-startup-id sh "$HOME/.config/X11/3-mon.sh", mode "3-monitors"
+    bindsym d exec --no-startup-id sh $XDG_CONFIG_HOME/config_monitors/default.sh && sh $XDG_CONFIG_HOME/.fehbg, mode "default"
+    bindsym m exec --no-startup-id sh $XDG_CONFIG_HOME/config_monitors/3-mon.sh && sh $XDG_CONFIG_HOME/.fehbg, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+
 bindsym $mod+CTRL+Shift+m mode "$mode_display"
 
 # Multiple monitors
@@ -358,7 +377,8 @@ bindsym $mod+y exec "setxkbmap -option 'caps:ctrl_modifier';xcape -e 'Caps_Lock=
 # exec --no-startup-id picom
 
 # Screenshots
-bindsym --release $mod+Shift+CTRL+s exec "scrot -s 'screenshot-%Y-%m-%d-%H_%M.jpg' && mv $HOME/screenshot*.jpg $HOME/screenshots/"
+##bindsym --release $mod+Shift+CTRL+s exec "scrot -s 'screenshot-%Y-%m-%d-%H_%M.jpg' && mv $HOME/screenshot*.jpg $HOME/screenshots/"
+bindsym --release $mod+Shift+CTRL+s exec "flameshot gui -p /home/lars/screenshots"
 
 # Media Keys
 bindsym $mod+CTRL+p exec playerctl play-pause
