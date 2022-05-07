@@ -4,3 +4,6 @@ alias d='dirs -v'
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
 
 alias vim='nvim'
+
+alias installedpackages="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
+alias packagebrowser="pacman -Slq | fzf --preview 'pacman -Si {}' --layout=reverse"

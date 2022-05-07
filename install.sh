@@ -95,3 +95,15 @@ ln -sf $DOTFILES/redshift/redshift.conf $XDG_CONFIG_HOME
 # feh #
 #######
 ln -sf $DOTFILES/feh/.fehbg $XDG_CONFIG_HOME/.fehbg
+
+##############
+# wikicurses #
+##############
+mkdir -p "$XDG_CONFIG_HOME/wikicurses"
+ln -sf $DOTFILES/wikicurses/config "$XDG_CONFIG_HOME/wikicurses/config"
+
+########
+# btop #
+########
+mkdir -p "$XDG_CONFIG_HOME/btop"
+ln -sf $DOTFILES/btop/btop.conf "$XDG_CONFIG_HOME/btop/btop.conf"
