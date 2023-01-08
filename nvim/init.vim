@@ -439,7 +439,7 @@ let g:winresizer_start_key = "<leader>w"
 """"""""""""""""""""
 " FZF
 """"""""""""""""""""
-map <leader>f :Files ~<cr> 
+map <leader>f :Files<cr> 
 map <leader>b :Buffers<cr>
 " ripgrep
 map <leader>g :Rg<cr> 

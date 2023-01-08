@@ -278,7 +278,7 @@ client.focused 		#333333 $black2 $white2 #285577
 client.focused_inactive #333333 $background $foreground #484e50
 client.unfocused 	#333333 #222222 #888888 #292d2e #222222
 client.urgent 		$red1 $red1 $white2 $red1 $red1
-client.placeholder 	#000000 #0c0c0c $white2 #000000 0c0c0c
+client.placeholder 	#000000 #0c0c0c $white2 #000000 #0c0c0c
 
 for_window [class=".*"] border pixel 0
 
@@ -287,7 +287,7 @@ for_window [class=".*"] border pixel 0
 
 for_window [instance="URxvt_scratchpad"] move to scratchpad, border none
 bindsym $mod+Shift+t [instance="URxvt_scratchpad"] scratchpad show
-exec urxvtc -bg rgba:0000/0000/0000/c800 --depth 32 -name URxvt_scratchpad -e tmux new-session -d -s scratchpad \; new-window -n vim 'nvim +e /tmp/nvim-tmp.md' \; attach-session -d -t scratchpad
+exec urxvtc -bg rgba:0000/0000/0000/c800 --depth 32 -name URxvt_scratchpad 
 
 # htop scratchpad
 for_window [instance="htop_scratchpad"] move to scratchpad, border none
@@ -317,7 +317,7 @@ mode "$mode_scratchpad" {
 	bindsym b [instance="bt_popup"] scratchpad show, mode "default"
 	bindsym s [instance="sound_popup"] scratchpad show, mode "default"
 	bindsym m [instance="spotify_popup"] scratchpad show, mode "default"
-    bindsym Shift+t exec urxvtc -bg rgba:0000/0000/0000/c800 --depth 32 -name URxvt_scratchpad -e tmux new-session -d -s scratchpad \; new-window -n vim 'nvim +e /tmp/nvim-tmp.md' \; attach-session -d -t scratchpad
+    bindsym Shift+t exec urxvtc -bg rgba:0000/0000/0000/c800 --depth 32 -name URxvt_scratchpad 
 	bindsym Shift+h exec urxvtc -name htop_scratchpad -e htop, mode "default"
 	bindsym Shift+b exec urxvtc -name bt_popup -e bluetoothctl, mode "default"
     bindsym Shift+s exec urxvtc -name sound_popup -e ncpamixer, mode "default"
@@ -334,18 +334,18 @@ bar {
     status_command i3status --config ~/.config/i3/i3status.conf
     
     # Disable all tray icons
-    tray_output none
+    # tray_output none
 
     # tray_output primary
     colors {
-        background $black2
+        background $black1
         statusline $white2
         separator $white2
 
         # border background text
         focused_workspace 	$background $background $red1
-        active_workspace 	$black2 $black1 $white2
-        inactive_workspace 	$black1 $black2 $foreground
+        active_workspace 	$black1 $black2 $white2
+        inactive_workspace 	$black2 $black1 $foreground
         urgent_workspace 	$red1 $red1 $white2
         binding_mode 		$background $red2 $white2
     }
@@ -372,7 +372,7 @@ bindsym $mod+p move workspace to output right
 bindsym $mod+y exec "setxkbmap -option 'caps:ctrl_modifier';xcape -e 'Caps_Lock=Escape' &"
 
 # Picom 
-# exec --no-startup-id picom
+exec --no-startup-id picom -b --backend glx
 
 # Screenshots
 ##bindsym --release $mod+Shift+CTRL+s exec "scrot -s 'screenshot-%Y-%m-%d-%H_%M.jpg' && mv $HOME/screenshot*.jpg $HOME/screenshots/"
@@ -506,11 +506,11 @@ mode "$mode_gaps_left" {
 }
 
 smart_gaps on
-gaps inner 10
 workspace 6 gaps inner 40
 workspace 6 gaps bottom 50
 workspace 6 gaps left 50
 workspace 1 gaps inner 40
 workspace 1 gaps bottom 50
 workspace 1 gaps left 50
+gaps inner 10
 

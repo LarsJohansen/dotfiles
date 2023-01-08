@@ -1,0 +1,16 @@
+[
+  {
+    "command": [
+      "/opt/vivaldi/vivaldi-bin",
+      "--enable-crashpad"
+    ],
+    "working_directory": "/home/lars"
+  },
+  {
+    "command": [
+      "/opt/vivaldi/vivaldi-bin",
+      "--enable-crashpad"
+    ],
+    "working_directory": "/home/lars"
+  }
+]

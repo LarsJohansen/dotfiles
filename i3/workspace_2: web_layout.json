@@ -1,0 +1,49 @@
+{
+    "border": "pixel",
+    "current_border_width": 0,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1039,
+       "width": 1920,
+       "x": 0,
+       "y": 20
+    },
+    "marks": [],
+    "name": "Manage resources – anthos-demo – Google Cloud console - Vivaldi",
+    "percent": 0.5,
+    "swallows": [
+       {
+       "class": "^Vivaldi\\-stable$",
+       "instance": "^vivaldi\\-stable$",
+       "machine": "^larsarus$",
+       "title": "^Manage\\ resources\\ \\–\\ anthos\\-demo\\ \\–\\ Google\\ Cloud\\ console\\ \\-\\ Vivaldi$",
+       "window_role": "^browser$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    "border": "pixel",
+    "current_border_width": 0,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1039,
+       "width": 1920,
+       "x": 0,
+       "y": 20
+    },
+    "marks": [],
+    "name": "Start Page - Vivaldi",
+    "percent": 0.5,
+    "swallows": [
+       {
+       "class": "^Vivaldi\\-stable$",
+       "instance": "^vivaldi\\-stable$",
+       "machine": "^larsarus$",
+       "title": "^Start\\ Page\\ \\-\\ Vivaldi$",
+       "window_role": "^browser$"
+       }
+    ],
+    "type": "con"
+}

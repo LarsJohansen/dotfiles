@@ -7,3 +7,5 @@ alias vim='nvim'
 
 alias installedpackages="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
 alias packagebrowser="pacman -Slq | fzf --preview 'pacman -Si {}' --layout=reverse"
+
+alias wifi='nmtui'

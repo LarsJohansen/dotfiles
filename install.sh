@@ -53,8 +53,8 @@ ln -sf "$DOTFILES/zsh/external" "$XDG_CONFIG_HOME/zsh"
 #########
 # picom #
 #########
-
-# ln -sf "$DOTFILES/picom/picom.conf" "$XDG_CONFIG_HOME/picom/picom.conf"
+mkdir -p "$XDG_CONFIG_HOME/picom"
+ln -sf "$DOTFILES/picom/picom.conf" "$XDG_CONFIG_HOME/picom/picom.conf"
 
 #########
 # emacs #
@@ -107,3 +107,10 @@ ln -sf $DOTFILES/wikicurses/config "$XDG_CONFIG_HOME/wikicurses/config"
 ########
 mkdir -p "$XDG_CONFIG_HOME/btop"
 ln -sf $DOTFILES/btop/btop.conf "$XDG_CONFIG_HOME/btop/btop.conf"
+
+###########
+# polybar #
+###########
+mkdir -p "$XDG_CONFIG_HOME/polybar"
+
+ln -sf $DOTFILES/polybar/config.ini "$XDG_CONFIG_HOME/polybar/config.ini"

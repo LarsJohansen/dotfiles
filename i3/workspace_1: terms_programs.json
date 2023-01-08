@@ -1,0 +1,11 @@
+[
+  {
+    "command": [
+      "urxvtd",
+      "-o",
+      "-q",
+      "-f"
+    ],
+    "working_directory": "/"
+  }
+]
